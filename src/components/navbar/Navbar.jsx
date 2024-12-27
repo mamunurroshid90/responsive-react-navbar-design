@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { navbarMenu } from "../mockData/Data";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaDumbbell } from "react-icons/fa";
 import { MdMenuOpen } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import ResponsiveMenu from "../responsiveMenu/ResponsiveMenu";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
       <nav>
-        <div className=" container flex justify-between items-center py-8">
+        <div className=" container flex justify-between items-center py-8 px-5">
           {/* Logo section */}
           <div className=" text-2xl flex items-center gap-2 font-bold uppercase">
             <FaDumbbell />
@@ -45,10 +48,16 @@ const Navbar = () => {
             </button>
           </div>
           {/* Mobile Hamburger Menu section */}
-          <div onClick={() => setOpen(!open)} className=" md:hidden">
-            <MdMenuOpen className=" text-4xl" />
-          </div>
+          <motion.div onClick={() => setOpen(!open)} className=" md:hidden">
+            {open ? (
+              <RxCross2 className=" text-4xl p-1 bg-primary text-white font-bold  rounded-full cursor-pointer" />
+            ) : (
+              <MdMenuOpen className=" text-4xl cursor-pointer" />
+            )}
+          </motion.div>
         </div>
+        {/* mobile sidebar section */}
+        <ResponsiveMenu open={open} />
       </nav>
     </>
   );
